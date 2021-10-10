@@ -52,7 +52,15 @@ const GridContainer = () => {
   return (
     <Grid container spacing={3}>
       {properties.map((property) => (
-        <Grid item xs={12} sm={6} md={4} key={property.title} elevation={0}>
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          md={4}
+          key={property.title}
+          elevation={0}
+          marginBottom="10px"
+        >
           <Card elevation={0} className={classes.card} sx={{ maxWidth: 395 }}>
             <CardMedia
               className={classes.image}
@@ -78,10 +86,9 @@ const GridContainer = () => {
               <StarRateRoundedIcon color="secondary" />
               <Typography>{property.rating}</Typography>
             </CardContent>
-            <CardActions>
-              <Button size="small">Share</Button>
-              <Button size="small">Learn More</Button>
-            </CardActions>
+            <Typography noWrap align="left" width="80%" fontWeight="medium">
+              {property.title}
+            </Typography>
           </Card>
         </Grid>
       ))}
