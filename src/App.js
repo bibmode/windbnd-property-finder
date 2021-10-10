@@ -3,6 +3,7 @@ import { Container } from "@mui/material";
 import GridHeader from "./components/GridHeader";
 import GridContainer from "./components/GridContainer";
 import { createTheme, ThemeProvider } from "@mui/material";
+import Header from "./components/Header";
 
 const theme = createTheme({
   typography: {
@@ -27,7 +28,8 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <Container>
+        <Container sx={{ mb: "5rem" }}>
+          <Header />
           <GridHeader />
           <GridContainer />
         </Container>
