@@ -1,6 +1,7 @@
 import "./App.css";
 import { Container } from "@mui/material";
 import GridHeader from "./components/GridHeader";
+import GridContainer from "./components/GridContainer";
 import { createTheme, ThemeProvider } from "@mui/material";
 
 const theme = createTheme({
@@ -14,6 +15,10 @@ const theme = createTheme({
   palette: {
     text: {
       primary: "#333333",
+      secondary: "#828282",
+    },
+    secondary: {
+      main: "#EB5757",
     },
   },
 });
@@ -24,6 +29,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Container>
           <GridHeader />
+          <GridContainer />
         </Container>
       </ThemeProvider>
     </div>

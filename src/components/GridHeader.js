@@ -7,6 +7,8 @@ const useStyles = makeStyles((theme) => {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
+      padding: "0",
+      marginBlock: "32px",
     },
     text: {
       display: "inline",
