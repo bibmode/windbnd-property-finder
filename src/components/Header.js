@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => {
       justifyContent: "space-between",
       alignItems: "center",
       padding: "0",
-      marginBlock: "49px 83px",
+      marginBlock: "40px 83px",
     },
     text: {
       textTransform: "capitalize",
@@ -62,12 +62,25 @@ const Header = () => {
             display: "flex",
             flexGrow: 1,
             justifyContent: "flex-start",
+            "@media (max-width: 472px)": {
+              mb: 2,
+            },
           }}
         >
           <img src={logo} alt="logo" width="110px" />
         </Grid>
 
-        <Grid item>
+        <Grid
+          item
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            "@media (max-width: 472px)": {
+              width: "100%",
+            },
+          }}
+        >
           <Box
             sx={{
               display: "flex",

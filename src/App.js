@@ -6,6 +6,16 @@ import { createTheme, ThemeProvider } from "@mui/material";
 import Header from "./components/Header";
 
 const theme = createTheme({
+  breakpoints: {
+    values: {
+      xxs: 0, // smol phone
+      xs: 300, // phone
+      sm: 600, // tablets
+      md: 900, // small laptop
+      lg: 1200, // desktop
+      xl: 1536, // large screens
+    },
+  },
   typography: {
     fontFamily: "Montserrat",
     fontWeightLight: 400,
