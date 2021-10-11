@@ -1,27 +1,16 @@
 import {
   Container,
-  ButtonGroup,
   IconButton,
   Grid,
   Button,
-  Typography,
-  OutlinedInput,
-  Input,
   InputBase,
-  inputBaseClasses,
+  Drawer,
 } from "@mui/material";
-import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
-import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
-import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight";
-import FormatBoldIcon from "@mui/icons-material/FormatBold";
-import FormatItalicIcon from "@mui/icons-material/FormatItalic";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import SearchIcon from "@mui/icons-material/Search";
-
 import { makeStyles } from "@mui/styles";
 import logo from "../images/logo.svg";
-import { maxWidth } from "@mui/system";
 
 const useStyles = makeStyles((theme) => {
   return {
