@@ -4,6 +4,7 @@ import GridHeader from "./components/GridHeader";
 import GridContainer from "./components/GridContainer";
 import { createTheme, ThemeProvider } from "@mui/material";
 import Header from "./components/Header";
+import { useState } from "react";
 
 const theme = createTheme({
   breakpoints: {
@@ -38,11 +39,17 @@ const theme = createTheme({
 });
 
 function App() {
+  const [location, setLocation] = useState("Helsinki");
+
+  const changeCity = (city) => {
+    setLocation(city);
+  };
+
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
         <Container sx={{ mb: "5rem" }}>
-          <Header />
+          <Header place={location} changeCity={(val) => changeCity(val)} />
           <GridHeader />
           <GridContainer />
         </Container>

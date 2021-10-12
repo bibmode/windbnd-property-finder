@@ -11,6 +11,10 @@ import Divider from "@mui/material/Divider";
 import SearchIcon from "@mui/icons-material/Search";
 import { makeStyles } from "@mui/styles";
 import logo from "../images/logo.svg";
+import FilterDrawer from "./FilterDrawer";
+
+import { useState, useEffect } from "react";
+import { SettingsAccessibility } from "@mui/icons-material";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -38,87 +42,136 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-const Header = () => {
+const Header = ({ place, changeCity }) => {
   const classes = useStyles();
+  const [drawer, setDrawer] = useState(false);
+  const [cities, setCities] = useState([]);
+  const [location, setLocation] = useState(place);
+
+  const toggleDrawer = (open) => (event) => {
+    setDrawer(open);
+  };
+
+  useEffect(() => {
+    changeCity(location);
+  }, [location]);
+
+  useEffect(() => {
+    fetch("http://localhost:8000/data")
+      .then((res) => res.json())
+      .then((data) => {
+        setCities(new Set(data.map((item) => item.city)));
+      });
+  }, []);
 
   return (
-    <Container className={classes.container}>
-      <Grid container>
-        <Grid
-          className="logoImage"
-          item
-          sx={{
-            display: "flex",
-            flexGrow: 1,
-            justifyContent: "flex-start",
-            "@media (max-width: 472px)": {
-              mb: 2,
-            },
-          }}
-        >
-          <img src={logo} alt="logo" width="110px" />
-        </Grid>
-
-        <Grid
-          item
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            "@media (max-width: 472px)": {
-              width: "100%",
-            },
-          }}
-        >
-          <Box
+    <>
+      <Container className={classes.container}>
+        <Grid container>
+          <Grid
+            className="logoImage"
+            item
             sx={{
               display: "flex",
-              alignItems: "center",
-              width: "fit-content",
-              border: (theme) => `1px solid ${theme.palette.divider}`,
-              bgcolor: "background.paper",
-              borderRadius: 4,
-              color: "text.secondary",
-              boxShadow: "0px 1px 6px rgba(0, 0, 0, 0.1)",
-              "& svg": {
-                m: 1.5,
-              },
-              "& hr": {
-                mx: 0.5,
+              flexGrow: 1,
+              justifyContent: "flex-start",
+              "@media (max-width: 472px)": {
+                mb: 2,
               },
             }}
           >
-            <Button className={classes.text} color="primary">
-              Helsinki, Finland
-            </Button>
-            <Divider orientation="vertical" flexItem />
+            <img src={logo} alt="logo" width="110px" />
+          </Grid>
 
-            <InputBase
-              className={classes.input}
-              placeholder="Add guests"
-              inputProps={{ "aria-label": "add guests" }}
-            />
-
-            <Divider orientation="vertical" flexItem />
-            <IconButton
+          <Grid
+            item
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              "@media (max-width: 472px)": {
+                width: "100%",
+              },
+            }}
+          >
+            <Box
               sx={{
-                ml: -0.5,
-                borderRadius: "0 16px 16px 0",
+                display: "flex",
+                alignItems: "center",
+                width: "fit-content",
+                border: (theme) => `1px solid ${theme.palette.divider}`,
+                bgcolor: "background.paper",
+                borderRadius: 4,
+                color: "text.secondary",
+                boxShadow: "0px 1px 6px rgba(0, 0, 0, 0.1)",
+                "& svg": {
+                  m: 1.5,
+                },
+                "& hr": {
+                  mx: 0.5,
+                },
               }}
-              aria-label="search"
-              size="small"
-              color="secondary"
             >
-              <SearchIcon
-                sx={{
-                  fontSize: "28px",
-                }}
+              <Button
+                onClick={toggleDrawer(true)}
+                className={classes.text}
+                color="primary"
+              >
+                {location}, Finland
+              </Button>
+              <Divider orientation="vertical" flexItem />
+
+              <InputBase
+                onClick={toggleDrawer(true)}
+                className={classes.input}
+                placeholder="Add guests"
+                inputProps={{ "aria-label": "add guests" }}
               />
-            </IconButton>
-          </Box>
+
+              <Divider orientation="vertical" flexItem />
+              <IconButton
+                onClick={toggleDrawer(true)}
+                sx={{
+                  ml: -0.5,
+                  borderRadius: "0 16px 16px 0",
+                }}
+                aria-label="search"
+                size="small"
+                color="secondary"
+              >
+                <SearchIcon
+                  sx={{
+                    fontSize: "28px",
+                  }}
+                />
+              </IconButton>
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
-    </Container>
+      </Container>
+
+      <Drawer
+        anchor={"top"}
+        open={drawer}
+        onClose={toggleDrawer(false)}
+        sx={{
+          marginBlock: 5,
+          boxShadow: 0,
+        }}
+      >
+        <FilterDrawer
+          cities={cities}
+          toggleDrawer={(val) => {
+            setDrawer(val);
+          }}
+          changeCity={(val) => {
+            setLocation(val);
+            console.log(location);
+          }}
+          location={location}
+        />
+      </Drawer>
+    </>
   );
 };
 
