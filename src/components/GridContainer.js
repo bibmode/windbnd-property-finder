@@ -3,7 +3,6 @@ import { grey } from "@mui/material/colors";
 import PropertyCard from "./PropertyCard";
 
 const GridContainer = ({ items: properties }) => {
-  console.log(properties);
   return (
     <Grid container spacing={4}>
       {properties.length !== 0 ? (

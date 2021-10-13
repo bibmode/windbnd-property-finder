@@ -37,10 +37,15 @@ const useStyles = makeStyles((theme) => {
       fontSize: "14px",
       paddingInline: "14px",
     },
+    logo: {
+      backgroundColor: "transparent",
+      cursor: "pointer",
+      border: "none",
+    },
   };
 });
 
-const Header = ({ place, getFilteredData }) => {
+const Header = ({ place, getFilteredData, showAll }) => {
   const classes = useStyles();
   const [drawer, setDrawer] = useState(false);
   const [cities, setCities] = useState([]);
@@ -87,7 +92,9 @@ const Header = ({ place, getFilteredData }) => {
               },
             }}
           >
-            <img src={logo} alt="logo" width="110px" />
+            <button className={classes.logo} onClick={showAll}>
+              <img src={logo} alt="logo" width="110px" />
+            </button>
           </Grid>
 
           <Grid

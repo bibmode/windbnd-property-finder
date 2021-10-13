@@ -46,10 +46,14 @@ function App() {
     setLocation(city);
   };
 
-  useEffect(() => {
+  const getAllProperties = () => {
     fetch("http://localhost:8000/data")
       .then((res) => res.json())
       .then((data) => setItems(data));
+  };
+
+  useEffect(() => {
+    getAllProperties();
   }, []);
 
   const getFilteredData = async (children, adults, city) => {
@@ -82,6 +86,7 @@ function App() {
             getFilteredData={(children, adults, city) =>
               getFilteredData(children, adults, city)
             }
+            showAll={() => getAllProperties()}
           />
           <GridHeader number={items.length} />
           <GridContainer items={items} />
