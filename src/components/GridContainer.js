@@ -1,15 +1,9 @@
 import { Grid } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PropertyCard from "./PropertyCard";
 
-const GridContainer = () => {
-  const [properties, setProperties] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:8000/data")
-      .then((res) => res.json())
-      .then((data) => setProperties(data));
-  }, []);
+const GridContainer = ({ items }) => {
+  const [properties, setProperties] = useState(items);
 
   return (
     <Grid container spacing={4}>

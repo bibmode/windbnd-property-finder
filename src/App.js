@@ -4,7 +4,7 @@ import GridHeader from "./components/GridHeader";
 import GridContainer from "./components/GridContainer";
 import { createTheme, ThemeProvider } from "@mui/material";
 import Header from "./components/Header";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const theme = createTheme({
   breakpoints: {
@@ -39,11 +39,18 @@ const theme = createTheme({
 });
 
 function App() {
-  const [location, setLocation] = useState("Helsinki");
+  const [location, setLocation] = useState(null);
+  const [items, setItems] = useState([]);
 
   const changeCity = (city) => {
     setLocation(city);
   };
+
+  useEffect(() => {
+    fetch("http://localhost:8000/data")
+      .then((res) => res.json())
+      .then((data) => setItems(data));
+  }, []);
 
   return (
     <div className="App">
@@ -51,7 +58,7 @@ function App() {
         <Container sx={{ mb: "5rem" }}>
           <Header place={location} changeCity={(val) => changeCity(val)} />
           <GridHeader />
-          <GridContainer />
+          <GridContainer items={items} />
         </Container>
       </ThemeProvider>
     </div>

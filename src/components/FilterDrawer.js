@@ -63,11 +63,24 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-const FilterDrawer = ({ cities, location, toggleDrawer, changeCity, menu }) => {
+const FilterDrawer = ({
+  cities,
+  location,
+  toggleDrawer,
+  changeCity,
+  menu,
+  adults,
+  children,
+  changeAdultsNum,
+  changeChildrenNum,
+}) => {
   const classes = useStyles();
 
   const [pickedLocation, setPickedLocation] = useState(location);
   const [pickedMenu, setPickedMenu] = useState(menu);
+
+  const [numAdults, setNumAdults] = useState(adults);
+  const [numChildren, setNumChildren] = useState(children);
 
   return (
     <Container className={classes.container}>
@@ -80,7 +93,7 @@ const FilterDrawer = ({ cities, location, toggleDrawer, changeCity, menu }) => {
             location
           </Typography>
           <Typography className={classes.values} variant="h6">
-            {pickedLocation ? pickedLocation : "Helsinki"}, Finland
+            {pickedLocation ? `${pickedLocation}, Finland` : "Add City"}
           </Typography>
         </Button>
 
@@ -94,7 +107,10 @@ const FilterDrawer = ({ cities, location, toggleDrawer, changeCity, menu }) => {
             guests
           </Typography>
           <Typography className={classes.values} variant="h6">
-            Add guests
+            {numAdults === 0 && numChildren === 0
+              ? "Add"
+              : `${numAdults + numChildren}`}{" "}
+            guests
           </Typography>
         </Button>
 
@@ -105,6 +121,8 @@ const FilterDrawer = ({ cities, location, toggleDrawer, changeCity, menu }) => {
             onClick={() => {
               toggleDrawer(false);
               changeCity(pickedLocation);
+              changeAdultsNum(numAdults);
+              changeChildrenNum(numChildren);
             }}
             variant="contained"
             color="secondary"
@@ -125,7 +143,12 @@ const FilterDrawer = ({ cities, location, toggleDrawer, changeCity, menu }) => {
           }}
         />
       ) : (
-        <GuestsMenu />
+        <GuestsMenu
+          adults={numAdults}
+          children={numChildren}
+          changeAdults={(num) => setNumAdults(num)}
+          changeChildren={(num) => setNumChildren(num)}
+        />
       )}
     </Container>
   );

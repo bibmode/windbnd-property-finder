@@ -13,6 +13,7 @@ import { makeStyles } from "@mui/styles";
 import logo from "../images/logo.svg";
 import FilterDrawer from "./FilterDrawer";
 import { useState, useEffect } from "react";
+import { grey } from "@mui/material/colors";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -29,7 +30,6 @@ const useStyles = makeStyles((theme) => {
       padding: "19px 16px",
       paddingRight: "18px",
       marginRight: "-5px",
-      borderRadius: "16px 0 0 16px",
     },
     input: {
       width: "fit-content",
@@ -46,6 +46,9 @@ const Header = ({ place, changeCity }) => {
   const [cities, setCities] = useState([]);
   const [location, setLocation] = useState(place);
   const [menu, setMenu] = useState(null);
+
+  const [numAdults, setNumAdults] = useState(0);
+  const [numChildren, setNumChildren] = useState(0);
 
   const toggleDrawer = (open) => (event) => {
     setDrawer(open);
@@ -115,18 +118,30 @@ const Header = ({ place, changeCity }) => {
               <Button
                 onClick={() => openAndSetMenu("locationsMenu")}
                 className={classes.text}
-                color="primary"
+                sx={{
+                  color: location ? "primary" : grey[400],
+                  borderRadius: "16px 0 0 16px",
+                }}
               >
-                {location}, Finland
+                {location ? `${location}, Finland` : "Add city"}
               </Button>
               <Divider orientation="vertical" flexItem />
 
-              <InputBase
+              <Button
                 onClick={() => openAndSetMenu("guestsMenu")}
-                className={classes.input}
-                placeholder="Add guests"
-                inputProps={{ "aria-label": "add guests" }}
-              />
+                className={classes.text}
+                sx={{
+                  color:
+                    numChildren !== 0 || numAdults !== 0
+                      ? "primary"
+                      : grey[400],
+                  marginLeft: "-5px",
+                }}
+              >
+                {numChildren === 0 && numAdults === 0
+                  ? "Add guests"
+                  : `${numChildren + numAdults} Guests`}
+              </Button>
 
               <Divider orientation="vertical" flexItem />
               <IconButton
@@ -169,6 +184,10 @@ const Header = ({ place, changeCity }) => {
           }}
           location={location}
           menu={menu}
+          adults={numAdults}
+          children={numChildren}
+          changeAdultsNum={(num) => setNumAdults(num)}
+          changeChildrenNum={(num) => setNumChildren(num)}
         />
       </Drawer>
     </>

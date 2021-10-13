@@ -2,6 +2,7 @@ import { Box } from "@mui/system";
 import { Button, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { useEffect, useState } from "react";
 
 import { makeStyles } from "@mui/styles";
 
@@ -14,7 +15,9 @@ const useStyles = makeStyles((theme) => {
     },
     category: {
       width: "33.33%",
-      marginTop: "48px",
+      marginTop: "51px",
+      paddingLeft: theme.spacing(3),
+      boxSizing: "border-box",
     },
     textDark: {
       fontSize: "14px",
@@ -45,8 +48,16 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-const GuestsMenu = () => {
+const GuestsMenu = ({ changeAdults, changeChildren, adults, children }) => {
   const classes = useStyles();
+
+  const [numAdults, setNumAdults] = useState(adults);
+  const [numChildren, setNumChildren] = useState(children);
+
+  useEffect(() => {
+    changeAdults(numAdults);
+    changeChildren(numChildren);
+  }, [numChildren, numAdults, changeAdults, changeChildren]);
 
   return (
     <div className={classes.container}>
@@ -57,7 +68,11 @@ const GuestsMenu = () => {
           Ages 13 or above
         </Typography>
         <Box className={classes.box}>
-          <Button className={classes.button} variant="outlined">
+          <Button
+            onClick={() => numAdults > 0 && setNumAdults(numAdults - 1)}
+            className={classes.button}
+            variant="outlined"
+          >
             <RemoveIcon className={classes.icon} />
           </Button>
           <Typography
@@ -66,9 +81,13 @@ const GuestsMenu = () => {
               paddingInline: 2,
             }}
           >
-            0
+            {numAdults}
           </Typography>
-          <Button className={classes.button} variant="outlined">
+          <Button
+            onClick={() => setNumAdults(numAdults + 1)}
+            className={classes.button}
+            variant="outlined"
+          >
             <AddIcon className={classes.icon} />
           </Button>
         </Box>
@@ -81,7 +100,11 @@ const GuestsMenu = () => {
           Ages 2-12
         </Typography>
         <Box className={classes.box}>
-          <Button className={classes.button} variant="outlined">
+          <Button
+            onClick={() => numChildren > 0 && setNumChildren(numChildren - 1)}
+            className={classes.button}
+            variant="outlined"
+          >
             <RemoveIcon className={classes.icon} />
           </Button>
           <Typography
@@ -90,9 +113,13 @@ const GuestsMenu = () => {
               paddingInline: 2,
             }}
           >
-            0
+            {numChildren}
           </Typography>
-          <Button className={classes.button} variant="outlined">
+          <Button
+            onClick={() => setNumChildren(numChildren + 1)}
+            className={classes.button}
+            variant="outlined"
+          >
             <AddIcon className={classes.icon} />
           </Button>
         </Box>
