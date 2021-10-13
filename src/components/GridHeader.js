@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-const GridHeader = () => {
+const GridHeader = ({ number }) => {
   const classes = useStyles();
 
   return (
@@ -37,7 +37,7 @@ const GridHeader = () => {
       </Typography>
 
       <Typography className={classes.text2} align="right">
-        12+ stays
+        {number} {number !== 1 ? "stays" : "stay"}
       </Typography>
     </Container>
   );

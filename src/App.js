@@ -41,7 +41,6 @@ const theme = createTheme({
 function App() {
   const [location, setLocation] = useState(null);
   const [items, setItems] = useState([]);
-  const [filteredData, setFilteredData] = useState(null);
 
   const changeCity = (city) => {
     setLocation(city);
@@ -84,7 +83,7 @@ function App() {
               getFilteredData(children, adults, city)
             }
           />
-          <GridHeader />
+          <GridHeader number={items.length} />
           <GridContainer items={items} />
         </Container>
       </ThemeProvider>
