@@ -36,8 +36,10 @@ const useStyles = makeStyles((theme) => {
       alignItems: "flex-start",
       padding: "12px 26px",
       width: "33%",
-      ":focus": {
+      borderRadius: "16px",
+      "&:hover, &:focus": {
         border: "1px solid #333333",
+        margin: "-1px 0",
       },
     },
     label: {
