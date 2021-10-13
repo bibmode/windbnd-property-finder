@@ -41,6 +41,7 @@ const theme = createTheme({
 function App() {
   const [location, setLocation] = useState(null);
   const [items, setItems] = useState([]);
+  const [filteredData, setFilteredData] = useState(null);
 
   const changeCity = (city) => {
     setLocation(city);
@@ -52,11 +53,37 @@ function App() {
       .then((data) => setItems(data));
   }, []);
 
+  const getFilteredData = async (children, adults, city) => {
+    const response = await fetch("http://localhost:8000/data");
+    const newData = await response.json();
+
+    const totalGuests = children + adults;
+
+    if (totalGuests === 0) {
+      await setItems(newData.filter((property) => property.city === city));
+    }
+
+    if (totalGuests !== 0) {
+      await setItems(
+        newData.filter(
+          (property) =>
+            property.maxGuests === totalGuests && property.city === city
+        )
+      );
+    }
+  };
+
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
         <Container sx={{ mb: "5rem" }}>
-          <Header place={location} changeCity={(val) => changeCity(val)} />
+          <Header
+            place={location}
+            changeCity={(val) => changeCity(val)}
+            getFilteredData={(children, adults, city) =>
+              getFilteredData(children, adults, city)
+            }
+          />
           <GridHeader />
           <GridContainer items={items} />
         </Container>

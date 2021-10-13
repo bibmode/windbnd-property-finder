@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-const Header = ({ place, changeCity }) => {
+const Header = ({ place, getFilteredData }) => {
   const classes = useStyles();
   const [drawer, setDrawer] = useState(false);
   const [cities, setCities] = useState([]);
@@ -66,6 +66,10 @@ const Header = ({ place, changeCity }) => {
         setCities(new Set(data.map((item) => item.city)));
       });
   }, []);
+
+  useEffect(() => {
+    getFilteredData(numAdults, numChildren, location);
+  }, [numAdults, numChildren, location]);
 
   return (
     <>
