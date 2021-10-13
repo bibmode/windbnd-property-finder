@@ -2,9 +2,9 @@ import { Box } from "@mui/system";
 import { Container, Button, Typography, Divider } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { makeStyles } from "@mui/styles";
-import { Translate } from "@mui/icons-material";
 import LocationsMenu from "./LocationsMenu";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import GuestsMenu from "./GuestsMenu";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -63,19 +63,19 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-const FilterDrawer = ({ cities, location, toggleDrawer, changeCity }) => {
+const FilterDrawer = ({ cities, location, toggleDrawer, changeCity, menu }) => {
   const classes = useStyles();
 
   const [pickedLocation, setPickedLocation] = useState(location);
-
-  useEffect(() => {
-    changeCity(pickedLocation);
-  }, [pickedLocation]);
+  const [pickedMenu, setPickedMenu] = useState(menu);
 
   return (
     <Container className={classes.container}>
       <Box className={classes.box}>
-        <Button className={classes.button}>
+        <Button
+          onClick={() => setPickedMenu("locationsMenu")}
+          className={classes.button}
+        >
           <Typography className={classes.label} variant="h6">
             location
           </Typography>
@@ -86,12 +86,15 @@ const FilterDrawer = ({ cities, location, toggleDrawer, changeCity }) => {
 
         <Divider orientation="vertical" flexItem />
 
-        <Button className={classes.button}>
+        <Button
+          onClick={() => setPickedMenu("guestsMenu")}
+          className={classes.button}
+        >
           <Typography className={classes.label} variant="h6">
             guests
           </Typography>
           <Typography className={classes.values} variant="h6">
-            4 guests
+            Add guests
           </Typography>
         </Button>
 
@@ -99,7 +102,10 @@ const FilterDrawer = ({ cities, location, toggleDrawer, changeCity }) => {
         <div className={classes.buttonContainer}>
           <Button
             className={classes.searchBtn}
-            onClick={() => toggleDrawer(false)}
+            onClick={() => {
+              toggleDrawer(false);
+              changeCity(pickedLocation);
+            }}
             variant="contained"
             color="secondary"
             sx={{
@@ -111,12 +117,16 @@ const FilterDrawer = ({ cities, location, toggleDrawer, changeCity }) => {
           </Button>
         </div>
       </Box>
-      <LocationsMenu
-        cities={cities}
-        pickCity={(city) => {
-          setPickedLocation(city);
-        }}
-      />
+      {pickedMenu === "locationsMenu" ? (
+        <LocationsMenu
+          cities={cities}
+          pickCity={(city) => {
+            setPickedLocation(city);
+          }}
+        />
+      ) : (
+        <GuestsMenu />
+      )}
     </Container>
   );
 };

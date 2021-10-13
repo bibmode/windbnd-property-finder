@@ -12,9 +12,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { makeStyles } from "@mui/styles";
 import logo from "../images/logo.svg";
 import FilterDrawer from "./FilterDrawer";
-
 import { useState, useEffect } from "react";
-import { SettingsAccessibility } from "@mui/icons-material";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -47,14 +45,16 @@ const Header = ({ place, changeCity }) => {
   const [drawer, setDrawer] = useState(false);
   const [cities, setCities] = useState([]);
   const [location, setLocation] = useState(place);
+  const [menu, setMenu] = useState(null);
 
   const toggleDrawer = (open) => (event) => {
     setDrawer(open);
   };
 
-  useEffect(() => {
-    changeCity(location);
-  }, [location]);
+  const openAndSetMenu = (menuVal) => {
+    setMenu(menuVal);
+    setDrawer(true);
+  };
 
   useEffect(() => {
     fetch("http://localhost:8000/data")
@@ -113,7 +113,7 @@ const Header = ({ place, changeCity }) => {
               }}
             >
               <Button
-                onClick={toggleDrawer(true)}
+                onClick={() => openAndSetMenu("locationsMenu")}
                 className={classes.text}
                 color="primary"
               >
@@ -122,7 +122,7 @@ const Header = ({ place, changeCity }) => {
               <Divider orientation="vertical" flexItem />
 
               <InputBase
-                onClick={toggleDrawer(true)}
+                onClick={() => openAndSetMenu("guestsMenu")}
                 className={classes.input}
                 placeholder="Add guests"
                 inputProps={{ "aria-label": "add guests" }}
@@ -166,9 +166,9 @@ const Header = ({ place, changeCity }) => {
           }}
           changeCity={(val) => {
             setLocation(val);
-            console.log(location);
           }}
           location={location}
+          menu={menu}
         />
       </Drawer>
     </>

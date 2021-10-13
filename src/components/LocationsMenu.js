@@ -1,7 +1,6 @@
 import { MenuList, MenuItem } from "@mui/material";
 import RoomIcon from "@mui/icons-material/Room";
 import { makeStyles } from "@mui/styles";
-import { useEffect, useState } from "react";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -21,12 +20,10 @@ const useStyles = makeStyles((theme) => {
 const LocationsMenu = ({ cities, pickCity }) => {
   const classes = useStyles();
 
-  const [cityList, setCityList] = useState(cities);
-
   return (
     <MenuList className={classes.menu}>
-      {cityList &&
-        [...cityList].map((city, index) => {
+      {cities &&
+        [...cities].map((city, index) => {
           return (
             <MenuItem
               className={classes.item}
