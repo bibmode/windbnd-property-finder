@@ -20,6 +20,14 @@ const useStyles = makeStyles((theme) => {
         marginBlock: "22px 37px",
       },
     },
+    box: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      [theme.breakpoints.down("sm")]: {
+        width: "100%",
+      },
+    },
     text: {
       textTransform: "capitalize",
       fontWeight: 500,
@@ -37,6 +45,7 @@ const useStyles = makeStyles((theme) => {
       backgroundColor: "transparent",
       cursor: "pointer",
       border: "none",
+      padding: "0",
     },
     logoImage: {
       display: "flex",
@@ -94,17 +103,7 @@ const Header = ({ place, getFilteredData, showAll }) => {
             </button>
           </Grid>
 
-          <Grid
-            item
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              "@media (max-width: 472px)": {
-                width: "100%",
-              },
-            }}
-          >
+          <Grid item className={classes.box}>
             <Box
               sx={{
                 display: "flex",

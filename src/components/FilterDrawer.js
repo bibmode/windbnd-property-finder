@@ -94,8 +94,7 @@ const useStyles = makeStyles((theme) => {
       marginTop: theme.spacing(12),
       justifyContent: "center",
       [theme.breakpoints.up("sm")]: {
-        opacity: "0",
-        visibility: "hidden",
+        display: "none",
       },
     },
     heading: {

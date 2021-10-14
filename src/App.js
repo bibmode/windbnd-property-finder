@@ -1,5 +1,5 @@
 import "./App.css";
-import { Container } from "@mui/material";
+import { Container, CircularProgress } from "@mui/material";
 import GridHeader from "./components/GridHeader";
 import GridContainer from "./components/GridContainer";
 import { createTheme, ThemeProvider } from "@mui/material";
@@ -41,6 +41,7 @@ const theme = createTheme({
 function App() {
   const [location, setLocation] = useState(null);
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const changeCity = (city) => {
     setLocation(city);
@@ -48,9 +49,13 @@ function App() {
 
   const getAllProperties = () => {
     setLocation(null);
+    setLoading(true);
     fetch("http://localhost:8000/data")
       .then((res) => res.json())
-      .then((data) => setItems(data));
+      .then((data) => {
+        setItems(data);
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -98,7 +103,7 @@ function App() {
             showAll={() => getAllProperties()}
           />
           <GridHeader number={items.length} />
-          <GridContainer items={items} />
+          {loading ? <CircularProgress /> : <GridContainer items={items} />}
         </Container>
       </ThemeProvider>
     </div>
