@@ -47,6 +47,7 @@ function App() {
   };
 
   const getAllProperties = () => {
+    setLocation(null);
     fetch("http://localhost:8000/data")
       .then((res) => res.json())
       .then((data) => setItems(data));
@@ -63,16 +64,22 @@ function App() {
     const totalGuests = children + adults;
 
     if (totalGuests === 0) {
-      await setItems(newData.filter((property) => property.city === city));
+      setItems(newData.filter((property) => property.city === city));
     }
 
     if (totalGuests !== 0) {
-      await setItems(
-        newData.filter(
-          (property) =>
-            property.maxGuests === totalGuests && property.city === city
-        )
-      );
+      if (!city)
+        setItems(
+          newData.filter((property) => property.maxGuests === totalGuests)
+        );
+      else {
+        setItems(
+          newData.filter(
+            (property) =>
+              property.maxGuests === totalGuests && property.city === city
+          )
+        );
+      }
     }
   };
 

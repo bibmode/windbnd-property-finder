@@ -75,6 +75,7 @@ const FilterDrawer = ({
   children,
   changeAdultsNum,
   changeChildrenNum,
+  getFilteredData,
 }) => {
   const classes = useStyles();
 
@@ -125,6 +126,7 @@ const FilterDrawer = ({
               changeCity(pickedLocation);
               changeAdultsNum(numAdults);
               changeChildrenNum(numChildren);
+              getFilteredData(numAdults, numChildren, pickedLocation);
             }}
             variant="contained"
             color="secondary"

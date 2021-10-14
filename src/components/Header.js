@@ -1,11 +1,4 @@
-import {
-  Container,
-  IconButton,
-  Grid,
-  Button,
-  InputBase,
-  Drawer,
-} from "@mui/material";
+import { Container, IconButton, Grid, Button, Drawer } from "@mui/material";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import SearchIcon from "@mui/icons-material/Search";
@@ -72,10 +65,6 @@ const Header = ({ place, getFilteredData, showAll }) => {
       });
   }, []);
 
-  useEffect(() => {
-    getFilteredData(numAdults, numChildren, location);
-  }, [numAdults, numChildren, location]);
-
   return (
     <>
       <Container className={classes.container}>
@@ -92,7 +81,15 @@ const Header = ({ place, getFilteredData, showAll }) => {
               },
             }}
           >
-            <button className={classes.logo} onClick={showAll}>
+            <button
+              className={classes.logo}
+              onClick={() => {
+                setLocation(null);
+                setNumAdults(0);
+                setNumChildren(0);
+                showAll();
+              }}
+            >
               <img src={logo} alt="logo" width="110px" />
             </button>
           </Grid>
@@ -199,6 +196,9 @@ const Header = ({ place, getFilteredData, showAll }) => {
           children={numChildren}
           changeAdultsNum={(num) => setNumAdults(num)}
           changeChildrenNum={(num) => setNumChildren(num)}
+          getFilteredData={(numAdults, numChildren, pickedLocation) =>
+            getFilteredData(numAdults, numChildren, pickedLocation)
+          }
         />
       </Drawer>
     </>
