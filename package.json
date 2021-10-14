@@ -1,6 +1,5 @@
 {
   "name": "windbnb-property-finder",
-  "homepage": "https://bibmode.github.io/bibmode/windbnb-property-finder/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -22,10 +21,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "main -d build",
-    "server": "npx json-server --watch data/db.json --port=3001"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
