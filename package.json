@@ -1,6 +1,6 @@
 {
   "name": "windbnb-property-finder",
-  "homepage": "http://bibmode.github.io/bibmode/stays-data",
+  "homepage": "http://bibmode.github.io/bibmode/wind-property-finder",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
