@@ -1,6 +1,13 @@
 import { Box } from "@mui/system";
-import { Container, Button, Typography, Divider } from "@mui/material";
+import {
+  Container,
+  Button,
+  Typography,
+  Divider,
+  IconButton,
+} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import CloseIcon from "@mui/icons-material/Close";
 import { makeStyles } from "@mui/styles";
 import LocationsMenu from "./LocationsMenu";
 import { useState } from "react";
@@ -12,8 +19,11 @@ const useStyles = makeStyles((theme) => {
       display: "flex",
       flexDirection: "column",
       marginBlock: "93px 70px",
-      paddingInline: "10px",
+      paddingInline: theme.spacing(2),
       overflow: "hidden",
+      [theme.breakpoints.down("sm")]: {
+        marginBlock: "18px 24px",
+      },
     },
     box: {
       display: "flex",
@@ -30,6 +40,10 @@ const useStyles = makeStyles((theme) => {
       "& hr": {
         mx: 0.5,
       },
+      [theme.breakpoints.down("sm")]: {
+        flexDirection: "column",
+        alignItems: "flex-start",
+      },
     },
     button: {
       display: "flex",
@@ -42,6 +56,9 @@ const useStyles = makeStyles((theme) => {
         border: "1px solid #333333",
         margin: "-1px 0",
       },
+      [theme.breakpoints.down("sm")]: {
+        width: "100%",
+      },
     },
     label: {
       fontSize: "9px",
@@ -53,9 +70,6 @@ const useStyles = makeStyles((theme) => {
       fontWeight: "normal",
       textTransform: "capitalize",
       textAlign: "left",
-      // "@media only screen and (max-width: 527px)": {
-      //   fontSize: "12px",
-      // },
     },
     searchBtn: {
       textTransform: "capitalize",
@@ -67,6 +81,34 @@ const useStyles = makeStyles((theme) => {
     },
     buttonContainer: {
       width: "33%",
+      [theme.breakpoints.down("sm")]: {
+        display: "none",
+      },
+    },
+    phoneSearchBtn: {
+      padding: "15px 25px",
+      borderRadius: "16px",
+    },
+    phoneSearchContainer: {
+      display: "flex",
+      marginTop: theme.spacing(12),
+      justifyContent: "center",
+      [theme.breakpoints.up("sm")]: {
+        opacity: "0",
+        visibility: "hidden",
+      },
+    },
+    heading: {
+      [theme.breakpoints.up("sm")]: {
+        display: "none",
+      },
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      marginBottom: theme.spacing(2),
+    },
+    closeBtn: {
+      padding: "0",
     },
   };
 });
@@ -93,6 +135,15 @@ const FilterDrawer = ({
 
   return (
     <Container className={classes.container}>
+      <div className={classes.heading}>
+        <Typography sx={{ fontSize: "12px", fontWeight: "600" }}>
+          Edit your search
+        </Typography>
+        <IconButton className={classes.closeBtn}>
+          <CloseIcon />
+        </IconButton>
+      </div>
+
       <Box className={classes.box}>
         <Button
           onClick={() => setPickedMenu("locationsMenu")}
@@ -107,6 +158,7 @@ const FilterDrawer = ({
         </Button>
 
         <Divider orientation="vertical" flexItem />
+        <Divider orientation="horizontal" flexItem />
 
         <Button
           onClick={() => setPickedMenu("guestsMenu")}
@@ -161,6 +213,27 @@ const FilterDrawer = ({
           changeChildren={(num) => setNumChildren(num)}
         />
       )}
+
+      <div className={classes.phoneSearchContainer}>
+        <Button
+          className={classes.phoneSearchBtn}
+          onClick={() => {
+            toggleDrawer(false);
+            changeCity(pickedLocation);
+            changeAdultsNum(numAdults);
+            changeChildrenNum(numChildren);
+            getFilteredData(numAdults, numChildren, pickedLocation);
+          }}
+          variant="contained"
+          color="secondary"
+          sx={{
+            boxShadow: 0,
+          }}
+          startIcon={<SearchIcon />}
+        >
+          Search
+        </Button>
+      </div>
     </Container>
   );
 };

@@ -16,10 +16,10 @@ const useStyles = makeStyles((theme) => {
     category: {
       width: "33.33%",
       marginTop: "51px",
-      paddingLeft: theme.spacing(3),
+      paddingLeft: "26px",
       boxSizing: "border-box",
       [theme.breakpoints.down("sm")]: {
-        paddingLeft: theme.spacing(2),
+        width: "100%",
       },
     },
     textDark: {
