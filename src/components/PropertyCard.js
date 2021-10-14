@@ -39,6 +39,7 @@ const PropertyCard = ({ title, photo, superHost, type, beds, rating }) => {
         <CardMedia
           className={classes.image}
           component="img"
+          loading="lazy"
           alt="green iguana"
           height="269"
           src={photo}
