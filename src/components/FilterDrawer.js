@@ -124,6 +124,7 @@ const FilterDrawer = ({
   changeAdultsNum,
   changeChildrenNum,
   getFilteredData,
+  setDrawer,
 }) => {
   const classes = useStyles();
 
@@ -139,7 +140,7 @@ const FilterDrawer = ({
         <Typography sx={{ fontSize: "12px", fontWeight: "600" }}>
           Edit your search
         </Typography>
-        <IconButton className={classes.closeBtn}>
+        <IconButton className={classes.closeBtn} onClick={toggleDrawer}>
           <CloseIcon />
         </IconButton>
       </div>

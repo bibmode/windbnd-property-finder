@@ -199,6 +199,7 @@ const Header = ({ place, getFilteredData, showAll }) => {
           getFilteredData={(numAdults, numChildren, pickedLocation) =>
             getFilteredData(numAdults, numChildren, pickedLocation)
           }
+          toggleDrawer={() => setDrawer(false)}
         />
       </Drawer>
     </>
