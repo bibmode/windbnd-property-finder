@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => {
       alignItems: "center",
       padding: "0",
       marginBlock: "40px 83px",
+      [theme.breakpoints.down("sm")]: {
+        marginBlock: "22px 37px",
+      },
     },
     text: {
       textTransform: "capitalize",
@@ -34,6 +37,14 @@ const useStyles = makeStyles((theme) => {
       backgroundColor: "transparent",
       cursor: "pointer",
       border: "none",
+    },
+    logoImage: {
+      display: "flex",
+      flexGrow: 1,
+      justifyContent: "flex-start",
+      [theme.breakpoints.down("sm")]: {
+        marginBottom: theme.spacing(4),
+      },
     },
   };
 });
@@ -69,18 +80,7 @@ const Header = ({ place, getFilteredData, showAll }) => {
     <>
       <Container className={classes.container}>
         <Grid container>
-          <Grid
-            className="logoImage"
-            item
-            sx={{
-              display: "flex",
-              flexGrow: 1,
-              justifyContent: "flex-start",
-              "@media (max-width: 472px)": {
-                mb: 2,
-              },
-            }}
-          >
+          <Grid className={classes.logoImage} item>
             <button
               className={classes.logo}
               onClick={() => {

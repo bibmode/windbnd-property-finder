@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => {
       marginTop: "51px",
       paddingLeft: theme.spacing(3),
       boxSizing: "border-box",
+      [theme.breakpoints.down("sm")]: {
+        paddingLeft: theme.spacing(2),
+      },
     },
     textDark: {
       fontSize: "14px",

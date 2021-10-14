@@ -81,6 +81,8 @@ function App() {
         );
       }
     }
+
+    if (totalGuests === 0 && city === null) getAllProperties();
   };
 
   return (

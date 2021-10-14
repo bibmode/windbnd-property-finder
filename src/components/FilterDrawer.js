@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => {
       flexDirection: "column",
       marginBlock: "93px 70px",
       paddingInline: "10px",
+      overflow: "hidden",
     },
     box: {
       display: "flex",
@@ -51,12 +52,17 @@ const useStyles = makeStyles((theme) => {
       fontSize: "14px",
       fontWeight: "normal",
       textTransform: "capitalize",
+      textAlign: "left",
+      // "@media only screen and (max-width: 527px)": {
+      //   fontSize: "12px",
+      // },
     },
     searchBtn: {
       textTransform: "capitalize",
       borderRadius: "16px",
       padding: "16px 27px",
       marginLeft: "50%",
+      height: "100%",
       transform: "translateX(-50%)",
     },
     buttonContainer: {
@@ -118,6 +124,7 @@ const FilterDrawer = ({
         </Button>
 
         <Divider orientation="vertical" flexItem />
+
         <div className={classes.buttonContainer}>
           <Button
             className={classes.searchBtn}
