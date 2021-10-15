@@ -7,6 +7,7 @@ import logo from "../images/logo.svg";
 import FilterDrawer from "./FilterDrawer";
 import { useState, useEffect } from "react";
 import { grey } from "@mui/material/colors";
+import stays from "../data/stays.json";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -78,11 +79,7 @@ const Header = ({ place, getFilteredData, showAll }) => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:8000/data")
-      .then((res) => res.json())
-      .then((data) => {
-        setCities(new Set(data.map((item) => item.city)));
-      });
+    setCities(new Set(stays.map((item) => item.city)));
   }, []);
 
   return (

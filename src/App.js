@@ -5,6 +5,7 @@ import GridContainer from "./components/GridContainer";
 import { createTheme, ThemeProvider } from "@mui/material";
 import Header from "./components/Header";
 import { useState, useEffect } from "react";
+import stays from "./data/stays.json";
 
 const theme = createTheme({
   breakpoints: {
@@ -50,36 +51,30 @@ function App() {
   const getAllProperties = () => {
     setLocation(null);
     setLoading(true);
-    fetch("http://localhost:8000/data")
-      .then((res) => res.json())
-      .then((data) => {
-        setItems(data);
-        setLoading(false);
-      });
+
+    setItems(stays);
+    setLoading(false);
   };
 
   useEffect(() => {
     getAllProperties();
   }, []);
 
-  const getFilteredData = async (children, adults, city) => {
-    const response = await fetch("http://localhost:8000/data");
-    const newData = await response.json();
-
+  const getFilteredData = (children, adults, city) => {
     const totalGuests = children + adults;
 
     if (totalGuests === 0) {
-      setItems(newData.filter((property) => property.city === city));
+      setItems(stays.filter((property) => property.city === city));
     }
 
     if (totalGuests !== 0) {
       if (!city)
         setItems(
-          newData.filter((property) => property.maxGuests === totalGuests)
+          stays.filter((property) => property.maxGuests === totalGuests)
         );
       else {
         setItems(
-          newData.filter(
+          stays.filter(
             (property) =>
               property.maxGuests === totalGuests && property.city === city
           )
